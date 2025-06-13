@@ -16,9 +16,9 @@ void setup() {
 
   // cria uma rede Wi-Fi chamada "ESP_Temp"
   WiFi.softAP("ESP_Temp", "12345678");
-  IPAddress IP = WiFi.softAPIP();
+  IPAddress IP = WiFi.softAPIP(); // obtém o IP do ponto de acesso
   Serial.print("Acesse via IP: ");
-  Serial.println(IP);
+  Serial.println(IP); //mostra no Serial o IP do ponto de acesso
 
   server.begin();
 }
@@ -34,13 +34,13 @@ void loop() {
   if (client) {
     String html = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n"; // resposta HTTP
     html += "<html><body><h1>Temperatura: ";
-    html += isnan(temperatura) ? "Erro" : String(temperatura) + " °C";
+    html += isnan(temperatura) ? "Erro" : String(temperatura) + " °C"; // exibe a temperatura ou erro se a leitura falhar
     html += "</h1></body></html>";
 
-    client.print(html);
+    client.print(html); // envia a resposta ao cliente
     delay(1);
-    client.stop();
+    client.stop(); // fecha a conexão com o cliente
   }
 
-  delay(1000);
+  delay(1000); // delay de 1 segundo entre as leituras
 }
